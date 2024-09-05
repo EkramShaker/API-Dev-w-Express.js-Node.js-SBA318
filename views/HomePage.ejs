@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juice Variety</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Juice Variety</h1>
+
+    <!-- List of Juices -->
+    <h2>Available Juices</h2>
+    <ul class="juice-list">
+        <% juices.forEach(juice => { %>
+            <li class="juice-item">
+                <strong><%= juice.name %></strong>: 
+                Ingredients - <%= juice.ingredients.join(', ') %>
+
+                <!-- Update Juice Form -->
+                <form action="/juices/<%= juice.id %>?_method=PUT" method="POST">
+                    <label for="name">Update Name:</label>
+                    <input type="text" name="name" value="<%= juice.name %>" required>
+                    <label for="ingredients">Update Ingredients:</label>
+                    <input type="text" name="ingredients" value="<%= juice.ingredients.join(', ') %>" required>
+                    <button type="submit">Update Juice</button>
+                </form>
+
+                <!-- Delete Juice Form -->
+                <form action="/juices/<%= juice.id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="delete-btn">Delete Juice</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <!-- Add New Juice Form -->
+    <h2>Add a New Juice</h2>
+    <form action="/juices" method="POST">
+        <label for="name">Juice Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="ingredients">Ingredients (comma-separated):</label>
+        <input type="text" id="ingredients" name="ingredients" required>
+        <button type="submit">Add Juice</button>
+    </form>
+
+    <footer>
+        Juice Variety App &copy; 2024
+    </footer>
+</body>
+</html>
